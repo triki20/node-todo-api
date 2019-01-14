@@ -35,9 +35,9 @@ describe('POST /Todo', () => {
                 return done(err);
             }
 
-        Todo.find({text}).then((todo) => {
-            expect(todo.length).toBe(1);
-            expect(todo[0].text).toBe(text);
+        Todo.find({text}).then((todos) => {
+            expect(todos.length).toBe(1);
+            expect(todos[0].text).toBe(text);
             done();
         }).catch((e) => done(e));
         });   
@@ -52,8 +52,8 @@ describe('POST /Todo', () => {
             if(err){
                 return done(err);
             }
-        Todo.find().then((todo) => {
-            expect(todo.length).toBe(2);
+        Todo.find().then((todos) => {
+            expect(todos.length).toBe(2);
             done()
         }).catch((e) => done(e));
         });
@@ -72,7 +72,7 @@ describe('GET /Todo', () => {
 });
 });
 
-describe('GET /todos/id', () => {
+describe('GET /todos/:id', () => {
     it('should get id todos', (done) => {
         request(app)
         .get(`/todos/${todos[0]._id.toHexString()}`)
@@ -99,7 +99,7 @@ describe('GET /todos/id', () => {
     });
 });
 
-describe('DELETE /todos/id', () => {
+describe('DELETE /todos/:id', () => {
     it('should remove a todo', (done) => {
         var HexID = todos[1]._id.toHexString();
 
