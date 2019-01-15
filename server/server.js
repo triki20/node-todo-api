@@ -70,7 +70,7 @@ app.delete('/todos/:id', (req,res) => {
 
 app.patch('/todos/:id', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(res.body, ['text','completed']);
+    var body = _.pick(req.body, ['text','completed']);
 
     if(!ObjectID.isValid(id)){
         res.status(404).send();
@@ -83,16 +83,13 @@ app.patch('/todos/:id', (req, res) => {
         body.completedAt = null;
     }
 
-    Todo.findByIdAndUpdate(id, {$set:body}, {$new: true}).then((todo) => {
+    Todo.findByIdAndUpdate(id, {$set: body}, {new : true}).then((todo) => {
         if(!todo){
             return res.status(404).send();
         }
-        res.send({todo});
-    }).catch((e) => {
-        res.status(400).send()
-    })
 
-
+        res.status(200).send({todo});
+    }).catch((e) => res.status(400).send());
 });
 
 app.listen(port, () => {
