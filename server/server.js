@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 // TODO 
 
+// todo POST
 app.post('/todos' , (req, res) => {
     var todo = new Todo({
         text: req.body.text
@@ -33,6 +34,7 @@ app.post('/todos' , (req, res) => {
     });
 });
 
+// todo GET
 app.get('/todos', (req, res) => {
     Todo.find().then((todo) => {
         res.send({todo});
@@ -58,6 +60,7 @@ app.get('/todos/:id', (req, res) => {
 
 });
 
+// todo DELETE
 app.delete('/todos/:id', (req,res) => {
     var id = req.params.id;
 
@@ -73,6 +76,7 @@ app.delete('/todos/:id', (req,res) => {
     }).catch((e) => res.status(400).send());
 });
 
+// todo PATCH
 app.patch('/todos/:id', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['text','completed']);
